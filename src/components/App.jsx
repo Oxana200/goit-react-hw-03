@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import ContactList from './ContactList/ContactList';
 import SearchBox from './SearchBox/SearchBox';
 import ContactForm from './ContactForm/ContactForm';
-import { nanoid } from 'nanoid';
-import css from './App.module.css';
 
 const initialContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -18,7 +16,6 @@ function App() {
     if (saved) {
       const parsed = JSON.parse(saved);
 
-      // Додаємо initialContacts, яких ще немає у сховищі
       const merged = [...initialContacts];
       for (const contact of parsed) {
         if (!merged.some(c => c.id === contact.id)) {

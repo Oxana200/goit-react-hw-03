@@ -1,17 +1,25 @@
-import css from './SearchBox.module.css';
+import s from './SearchBox.module.css';
 
-function SearchBox({ value, onChange }) {
+const SearchBox = ({ value, onChange }) => {
+  const handleInputChange = (e) => {
+    onChange(e.target.value);
+  };
+
   return (
-    <div className={css.wrapper}>
-      <label className={css.label}>Find contacts by name</label>
+    <div className={s.wrapper}>
+      <label htmlFor="search" className={s.label}>
+        Find contacts by name
+      </label>
       <input
+        id="search"
         type="text"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={css.input}
+        onChange={handleInputChange}
+        className={s.input}
       />
     </div>
   );
-}
+};
 
 export default SearchBox;
+

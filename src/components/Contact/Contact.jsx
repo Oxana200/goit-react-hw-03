@@ -1,12 +1,19 @@
-import css from './Contact.module.css';
+import { FaUser, FaPhone } from 'react-icons/fa';
+import s from './Contact.module.css';
 
 const Contact = ({ name, number }) => {
   return (
-    <div className={css.contact}>
-      <p className={css.contactName}>{name}</p>
-      <p className={css.contactNumber}>{number}</p>
+    <div className={s.contact}>
+      <p className={s.contactName}>
+        <FaUser className={s.icon} /> {name}
+      </p>
+      <p className={s.contactNumber}>
+        <FaPhone className={s.icon} /> {number}
+      </p>
     </div>
   );
 };
 
 export default Contact;
+
+

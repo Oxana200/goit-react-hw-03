@@ -1,21 +1,17 @@
 .contact {
-    border: 1px solid #ccc;
-    padding: 8px;
-    margin-bottom: 8px;
-    border-radius: 4px;
+
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 400px;
+    flex-direction: column;
 }
 
 button {
-    padding: 4px 10px;
+    padding: 12px;
     background-color: #ff4d4f;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    width: 120px;
 }
 
 button:hover {

@@ -15,4 +15,10 @@
     max-width: 300px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    outline: none;
+}
+
+.input:hover,
+.input:active {
+    border: 1px solid lightblue;
 }

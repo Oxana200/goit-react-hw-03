@@ -2,14 +2,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
-import css from './ContactForm.module.css';
+import s from './ContactForm.module.css';
 
 const ContactForm = ({ onAdd }) => {
   const [inputWarning, setInputWarning] = useState('');
 
-  // Форматування номера телефону
   const formatPhoneNumber = (input) => {
-    const digits = input.replace(/\D/g, ''); // Видаляємо все, крім цифр
+    const digits = input.replace(/\D/g, '');
 
     let formatted = '';
     if (digits.length <= 3) formatted = digits;
@@ -19,24 +18,21 @@ const ContactForm = ({ onAdd }) => {
     return formatted;
   };
 
-  // Функція для приведення імені до правильного формату (перша літера кожного слова велика)
   const formatName = (input) => {
     return input
-      .split(' ') // Розбиваємо на слова
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Перша літера велика
-      .join(' '); // З'єднуємо слова назад пробілами
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
   };
 
-  // Ініціалізація значень форми
   const initialValues = {
     name: '',
     number: '',
   };
 
-  // Валідація форми
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-      .matches(/^[A-Za-z\s]+$/, 'Name should only contain letters and spaces') // Дозволяє лише літери та пробіли
+      .matches(/^[A-Za-z\s]+$/, 'Name should only contain letters and spaces')
       .min(3, 'Must be at least 3 characters')
       .max(50, 'Must be 50 characters or less')
       .required('Required'),
@@ -46,7 +42,6 @@ const ContactForm = ({ onAdd }) => {
       .required('Required'),
   });
 
-  // Обробка сабміту форми
   const handleSubmit = (values, { resetForm }) => {
     const newContact = {
       id: nanoid(),
@@ -55,7 +50,7 @@ const ContactForm = ({ onAdd }) => {
     };
 
     onAdd(newContact);
-    resetForm(); // Очищаємо форму після сабміту
+    resetForm();
   };
 
   return (
@@ -65,18 +60,17 @@ const ContactForm = ({ onAdd }) => {
       onSubmit={handleSubmit}
     >
       {({ setFieldValue }) => (
-        <Form className={css.form}>
-          <label className={css.label}>
+        <Form className={s.form}>
+          <label className={s.label}>
             Name
-            <Field className={css.input} type="text" name="name" onChange={(e) => {
-              // Форматуємо ім'я при введенні
+            <Field className={s.input} type="text" name="name" placeholder="Rosie Simpson" onChange={(e) => {
               const formattedName = formatName(e.target.value);
               setFieldValue('name', formattedName);
             }} />
-            <ErrorMessage className={css.error} component="div" name="name" />
+            <ErrorMessage className={s.error} component="div" name="name" />
           </label>
 
-          <label className={css.label}>
+          <label className={s.label}>
             Number
             <Field name="number">
               {({ field }) => (
@@ -84,31 +78,28 @@ const ContactForm = ({ onAdd }) => {
                   <input
                     {...field}
                     type="tel"
-                    placeholder="227-91-26"
-                    className={css.input}
+                    placeholder="123-45-67"
+                    className={s.input}
                     onChange={(e) => {
                       const input = e.target.value;
-
-                      // Перевірка на цифри
                       if (/[^\d]/.test(input.replace(/[-]/g, ''))) {
                         setInputWarning('Only digits are allowed. Other characters will be ignored.');
                       } else {
                         setInputWarning('');
                       }
 
-                      // Форматування номера
                       const formatted = formatPhoneNumber(input);
                       setFieldValue('number', formatted);
                     }}
                   />
-                  {inputWarning && <div className={css.warning}>{inputWarning}</div>}
+                  {inputWarning && <div className={s.warning}>{inputWarning}</div>}
                 </div>
               )}
             </Field>
-            <ErrorMessage className={css.error} component="div" name="number" />
+            <ErrorMessage className={s.error} component="div" name="number" />
           </label>
 
-          <button className={css.button} type="submit">Add contact</button>
+          <button className={s.button} type="submit">Add contact</button>
         </Form>
       )}
     </Formik>
@@ -116,3 +107,4 @@ const ContactForm = ({ onAdd }) => {
 };
 
 export default ContactForm;
+
